@@ -19,7 +19,7 @@ def score_test_data(client):
     url = 'http://localhost:8787/predict' ## this is the route we made for prediction
     response = requests.post(url, json=client) ## post the customer information in json format
     result = response.json() ## get the server response
-    print(result)
+    logger.info(result)
 
 y_test, X_test = sample_test_data(n=5)
 records = X_test.to_dict(orient='records')
