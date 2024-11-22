@@ -1,26 +1,26 @@
-import openml
+
 import pickle
 import logging
 import pandas as pd
 import numpy as np
 
 from dataprep import features
+from sklearn.datasets import fetch_openml
 from sklearn.model_selection import train_test_split
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LogisticRegression
 
-logging.basicConfig(level=logging.DEBUG,
+logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
 
 logger = logging.getLogger()
 
-def read_open_ml_data(id=24):
-   dataset = openml.datasets.get_dataset(id)
-   return dataset.get_data()[0]
+def read_open_ml_data(id):
+   return fetch_openml(data_id=id)['frame']
 
 
 def prepare_dataset():
-   df = read_open_ml_data()
+   df = read_open_ml_data(id=24)
    columns = [x.replace("-", "_") for x in df.columns]
    columns = [x.replace("%3F", "") for x in columns]
    df.columns = columns
@@ -66,7 +66,7 @@ def train_model():
    logger.info("Writting Model")
    write_artifacts(dv, model)
    logger.info("Writing test data")
-   df_test.to_parquet("./artifacts/df_test.parquet")
+   df_test.to_csv("./artifacts/df_test.csv", index=False)
 
 if __name__ == '__main__':
    train_model()
