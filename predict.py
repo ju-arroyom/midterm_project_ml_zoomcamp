@@ -15,13 +15,12 @@ def predict_client(dv, model, client):
 
 
 dv, model = load_artifacts("./artifacts/model.bin")
-app = Flask('hw5')
+app = Flask('midterm_project')
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
     client = request.get_json()
-
     prediction = predict_client(dv, model, client)
 
     decision = prediction >= 0.5
