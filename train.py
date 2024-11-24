@@ -16,32 +16,81 @@ logging.basicConfig(level=logging.INFO,
 logger = logging.getLogger()
 
 def read_open_ml_data(id):
+   """
+   Read OpenML dataset
+
+   Args:
+       id (int): Integer describing dataset id
+
+   Returns:
+       Dataframe: Pandas df of corresponding id
+   """
    return fetch_openml(data_id=id)['frame']
 
 
 def prepare_dataset():
+   """
+   Read dataset and update target variable
+
+   Returns:
+       Dataframe: Updated dataframe
+   """
    df = read_open_ml_data(id=45578)
    # If medianHouseValue True, then 1. Otherwise, 0.
    df['medianHouseValue'] = np.where(df['medianHouseValue']=="True", 1, 0)
    return df
 
 def split_dataset(df):
+   """
+   Train vs. test split
+
+   Args:
+       df (Dataframe): Dataset
+
+   Returns:
+       Tuple(Df, Df): Tuple containing train vs. test dataframes
+   """
    df_full_train, df_test = train_test_split(df, test_size=0.2, random_state=42)
    return df_full_train, df_test
 
 def transform_data(df):
-    dicts = df.to_dict(orient='records')
-    dv = DictVectorizer(sparse=True)
-    X = dv.fit_transform(dicts)
-    return X, dv
+   """
+   Transform Data using DictVectorizer
+
+   Args:
+       df (Dataframe): Dataframe to be transformed
+
+   Returns:
+       Tuple(Df, dv): Tuple containing transformed df and fitted vectorizer.
+   """
+   dicts = df.to_dict(orient='records')
+   dv = DictVectorizer(sparse=True)
+   X = dv.fit_transform(dicts)
+   return X, dv
 
 def get_feats_and_target(df):
-    target = "medianHouseValue"
-    y_train = df[target].values
-    del df[target]
-    return y_train, df
+   """
+   Split features and target
+
+   Args:
+       df (Dataframe): Complete dataset feats + target
+
+   Returns:
+       Tuple(Array, Df): Tuple containing numpy array with target and features df.
+   """
+   target = "medianHouseValue"
+   y_train = df[target].values
+   del df[target]
+   return y_train, df
 
 def write_artifacts(dv, model):
+   """
+   Write model artifacts to binary file
+
+   Args:
+       dv (Vectorizer): Fitted dict vectorizer
+       model (model objects): Trained model object
+   """
    directory = "./artifacts"
    if not os.path.exists(directory):
       os.makedirs(directory)
@@ -49,6 +98,9 @@ def write_artifacts(dv, model):
        pickle.dump((dv, model), f_out)
 
 def train_model():
+   """
+   Main function to execute model training.
+   """
    logger.info("Preparing raw data")
    df = prepare_dataset()
    logger.info("Splitting train vs. test")

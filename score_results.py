@@ -10,14 +10,29 @@ logger = logging.getLogger()
 
 
 def sample_test_data(n):
+    """
+    Create a random sample of test data for scoring
+
+    Args:
+        n (int): sample size
+
+    Returns:
+        Tuple(Array, Df): Tuple containing random sample of test data
+    """
     df_test = pd.read_csv("./artifacts/df_test.csv").sample(n, random_state=42)
     y_test, X_test = get_feats_and_target(df_test)
     return y_test, X_test
 
 
-def score_test_data(client):
-    url = 'http://localhost:8787/predict' ## this is the route we made for prediction
-    response = requests.post(url, json=client) ## post the customer information in json format
+def score_test_data(house_info):
+    """
+    Score sample test data
+
+    Args:
+        house_info (dict): Dictionary containing house features
+    """
+    url = 'http://localhost:8787/predict'
+    response = requests.post(url, json=house_info) ## post the house information in json format
     result = response.json() ## get the server response
     logger.info(result)
 
