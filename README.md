@@ -2,7 +2,7 @@
 
 This project is based on a binarized version of the California Housing Dataset in [OpenML](https://www.openml.org/search?type=data&status=active&id=45578&sort=runs).
 
-The original target variable, median house value for California districts, expressed in hundreds of thousands of dollars ($100,000) was binarized in this dataset. See the following link for descriptio of the [original dataset](https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_california_housing.html).
+The original target variable, median house value for California districts, expressed in hundreds of thousands of dollars ($100,000) was binarized in this OpenML dataset. See the following link for description of the [original dataset](https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_california_housing.html).
 
 Unfortunately, the methodology for converting it into a binary variable was not provided in the dataset description.
 
