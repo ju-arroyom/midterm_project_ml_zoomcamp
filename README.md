@@ -16,40 +16,39 @@ Based on these features, the goal is to classify the binary medianHouseValue.
 This dataset can be downloaded via `sklearn` using the fetch_openml function. Please refer to training script or notebook.
 
 ## Project Structure
-
+```
 ├── Dockerfile
-|
 ├── Pipfile
 ├── Pipfile.lock
 ├── README.md
 ├── artifacts
 │   ├── df_test.csv
 │   └── model.bin
+├── dataprep.py
 ├── notebooks
 │   └── notebook.ipynb
 ├── predict.py
 ├── score_results.py
 └── train.py
-
+```
 ## Project Setup
 
 ### Conda environment for running the notebook
-
+```
 conda create -n ml-zoomcamp python=3.11
 
 conda install numpy pandas scikit-learn seaborn jupyter pyarrow pipenv
-
-
+```
 ### Pipenv
 
 pipenv install pandas==2.2.2 scikit-learn==1.5.1 flask gunicorn
 
 ### Docker
-
+```
 docker build -t housing_prediction .
 
 docker run -it --rm -p 8787:8787 housing_prediction
-
+```
 ### Scoring test results
 
 From conda environment run the following command:
