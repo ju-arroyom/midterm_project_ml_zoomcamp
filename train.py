@@ -1,4 +1,5 @@
 
+import os
 import pickle
 import logging
 import pandas as pd
@@ -41,7 +42,10 @@ def get_feats_and_target(df):
     return y_train, df
 
 def write_artifacts(dv, model):
-    with open('./artifacts/model.bin', 'wb') as f_out:
+   directory = "./artifacts"
+   if not os.path.exists(directory):
+      os.makedirs(directory)
+   with open(f'{directory}/model.bin', 'wb') as f_out:
        pickle.dump((dv, model), f_out)
 
 def train_model():
