@@ -45,3 +45,16 @@ conda install numpy pandas scikit-learn seaborn jupyter pyarrow pipenv
 pipenv install pandas==2.2.2 scikit-learn==1.5.1 flask gunicorn
 
 ### Docker
+
+docker build -t housing_prediction .
+
+docker run -it --rm -p 8787:8787 housing_prediction
+
+### Scoring test results
+
+From conda environment run the following command:
+
+`python score_results.py`
+
+### Sample Video of Execution
+
