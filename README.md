@@ -1,39 +1,46 @@
 # Midterm Project ML-Zoomcamp
 
-This project is based on the mushroom dataset available in (OpenML)[https://www.openml.org/search?type=data&sort=runs&status=active&id=24].
+This project is based on a binarized version of the California Housing Dataset in (OpenML)[https://www.openml.org/search?type=data&status=active&id=45578&sort=runs].
 
-This dataset describes mushrooms in terms of their physical characteristics. Based on these features, the goal is to classify them into poisonous or edible.
+The original target variable, median house value for California districts, expressed in hundreds of thousands of dollars ($100,000) was binarized in this dataset. (See https://inria.github.io/scikit-learn-mooc/python_scripts/datasets_california_housing.html for more details).
 
-The features described below were copied directly from OpenML's website for reference:
+Unfortunately, the methodology for converting it into a binary variable was not provided in the dataset description.
 
-**Attributes Information**
+This dataset describes the median value of a house in terms of the following characteristics: median income, housing median age, total rooms, total bedrooms, population, households, latitude, and longitude.
 
-1. cap-shape: bell=b,conical=c,convex=x,flat=f, knobbed=k,sunken=s 
-2. cap-surface: fibrous=f,grooves=g,scaly=y,smooth=s 
-3. cap-color: brown=n,buff=b,cinnamon=c,gray=g,green=r, pink=p,purple=u,red=e,white=w,yellow=y 
-4. bruises?: bruises=t,no=f 
-5. odor: almond=a,anise=l,creosote=c,fishy=y,foul=f, musty=m,none=n,pungent=p,spicy=s 
-6. gill-attachment: attached=a,descending=d,free=f,notched=n 
-7. gill-spacing: close=c,crowded=w,distant=d 
-8. gill-size: broad=b,narrow=n 
-9. gill-color: black=k,brown=n,buff=b,chocolate=h,gray=g, green=r,orange=o,pink=p,purple=u,red=e, white=w,yellow=y 
-10. stalk-shape: enlarging=e,tapering=t 
-11. stalk-root: bulbous=b,club=c,cup=u,equal=e, rhizomorphs=z,rooted=r,missing=? 
-12. stalk-surface-above-ring: fibrous=f,scaly=y,silky=k,smooth=s 
-13. stalk-surface-below-ring: fibrous=f,scaly=y,silky=k,smooth=s 
-14. stalk-color-above-ring: brown=n,buff=b,cinnamon=c,gray=g,orange=o, pink=p,red=e,white=w,yellow=y 
-15. stalk-color-below-ring: brown=n,buff=b,cinnamon=c,gray=g,orange=o, pink=p,red=e,white=w,yellow=y 
-16. veil-type: partial=p,universal=u 
-17. veil-color: brown=n,orange=o,white=w,yellow=y 
-18. ring-number: none=n,one=o,two=t 
-19. ring-type: cobwebby=c,evanescent=e,flaring=f,large=l, none=n,pendant=p,sheathing=s,zone=z 
-20. spore-print-color: black=k,brown=n,buff=b,chocolate=h,green=r, orange=o,purple=u,white=w,yellow=y 
-21. population: abundant=a,clustered=c,numerous=n, scattered=s,several=v,solitary=y
-22. habitat: grasses=g,leaves=l,meadows=m,paths=p, urban=u,waste=w,woods=d
+Based on these features, the goal is to classify the binary medianHouseValue.
 
 
-# Conda environment for running the notebook
+## Dataset
+
+This dataset can be downloaded via `sklearn` using the fetch_openml function. Please refer to training script or notebook.
+
+## Project Structure
+
+├── Dockerfile
+├── Pipfile
+├── Pipfile.lock
+├── README.md
+├── artifacts
+│   ├── df_test.csv
+│   └── model.bin
+├── notebooks
+│   └── notebook.ipynb
+├── predict.py
+├── score_results.py
+└── train.py
+
+## Project Setup
+
+### Conda environment for running the notebook
 
 conda create -n ml-zoomcamp python=3.11
 
-conda install numpy pandas scikit-learn seaborn jupyter
+conda install numpy pandas scikit-learn seaborn jupyter pyarrow pipenv
+
+
+### Pipenv
+
+pipenv install pandas==2.2.2 scikit-learn==1.5.1 flask gunicorn
+
+### Docker
