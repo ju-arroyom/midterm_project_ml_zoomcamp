@@ -37,7 +37,7 @@ This dataset can be downloaded via `sklearn` using the fetch_openml function. Pl
 ```
 conda create -n ml-zoomcamp python=3.11
 
-conda install numpy pandas scikit-learn seaborn jupyter pyarrow pipenv
+conda install numpy pandas scikit-learn seaborn jupyter pipenv
 ```
 ### Pipenv
 
@@ -49,6 +49,14 @@ docker build -t housing_prediction .
 
 docker run -it --rm -p 8787:8787 housing_prediction
 ```
+### Model Training
+
+To train the final model, please run `python train.py` inside the conda environment.
+
+This script will create the artifacts directory and store the `model.bin` file as well as `df_test.csv`.
+
+Both files are required to run the scoring script.
+
 ### Scoring test results
 
 From conda environment run the following command:
